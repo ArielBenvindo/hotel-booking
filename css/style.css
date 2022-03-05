@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;800;900&display=swap');
+
+:root{
+    --first-color: #2ec1ac;
+    --second-color: #279e8c;
+    --Cormorant: "Cormorant";
+    --Jost: "Jost";
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--Jost);
+}
+body{
+    overflow-x: hidden;
+}
+.h-font{
+    font-family: var(--Cormorant);
+}
+.custom-bg .btn{
+    background-color: var(--first-color);
+    border: var(--first-color);
+}
+.custom-bg .btn:hover{
+    background-color: var(--second-color);
+    border: var(--second-color)
+}
+
+.h-line{
+    width: 150px;
+    margin: 0 auto;
+    height: 1.7px;
+}
+.pop:hover{
+    border-top-color: var(--first-color)!important;
+    transform: scale(1.03);
+    transition:  all 0.3s;
+}
+.box:hover{
+    border-top-color: var(--first-color)!important;
+}
+@media screen and (max-width: 575px) {
+    .availability-form{
+        margin-top: 25px;
+        padding: 0 35px;
+    }
+}
