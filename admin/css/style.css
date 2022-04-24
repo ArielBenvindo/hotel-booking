@@ -36,15 +36,16 @@ body{
 
 .custom-alert{
     width: 400px;
-    top: 25px;
+    top: -900px;
     right: 25px;
-    position: fixed;
     float: right;
+    z-index: 11;
 }
 
 #dashboard-menu{
     position: fixed;
     height: 100%;
+    z-index: 11;
 }
 
 @media screen and (max-width: 991px) {
@@ -54,5 +55,8 @@ body{
     }
     #main-content{
         margin-top: 60px;
+    }
+    .custom-alert{
+        top: -1000px;
     }
 }
