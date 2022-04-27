@@ -1,5 +1,7 @@
 <?php
 
+define('UPLOAD_IMAGE_PATH', '');
+
 function alert($type, $msg){
     
     $bs_class = ($type == "success") ? "alert-success" : "alert-danger";
@@ -20,9 +22,9 @@ function adminLogin(){
                 window.location.href='index.php';
             </script>    
         ";
+        exit;
     }
     
-    session_regenerate_id(true);
 }
 
 function redirect($url){
@@ -31,8 +33,11 @@ function redirect($url){
             window.location.href='$url';
         </script>
     ";
+    exit;
 }
 
-
+function uploadImage($image, $folder){
+    
+}
 
 ?>

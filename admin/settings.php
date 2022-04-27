@@ -181,23 +181,27 @@ adminLogin();
 
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text"><i class="bi bi-twitter"></i></span>
-                                                    <input type="text" name="pn1" id="pn1_inp" class="form-control shadow-none" required>
+                                                    <input type="text" name="tw" id="tw_inp" class="form-control shadow-none" required>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text"><i class="bi bi-facebook"></i></span>
-                                                    <input type="text" name="pn2" id="pn2_inp" class="form-control shadow-none" required>
+                                                    <input type="text" name="fb" id="fb_inp" class="form-control shadow-none" required>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text"><i class="bi bi-instagram"></i></span>
-                                                    <input type="text" name="pn2" id="pn2_inp" class="form-control shadow-none" required>
+                                                    <input type="text" name="insta" id="insta_inp" class="form-control shadow-none" required>
                                                 </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">IFrame</label>
+                                                <input name="iframe" required type="text" class="form-control shadow-none" id="iframe_inp">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" onclick="site_title.value = general_data.site_title, site_about_value = general_data.site_about" class="btn text-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" onclick="contacts_inp(contacts_data)" class="btn text-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
                                 <div class="custom-bg">
                                     <button type="submit" class="btn text-white shadow-none">Submit</button>
                                 </div>
@@ -206,6 +210,52 @@ adminLogin();
                     </form>
                 </div>
             </div>
+
+            <!--Management Team section -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="card-title m-0">Mangement Team</h5>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#team-s">
+                            <i class="bi bi-plus-square"></i> Add
+                        </button>
+                    </div>
+                    <div class="row" id="team-data">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Management Team Modal -->
+            <div class="modal fade" id="team-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form id="team_s_form">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add Team Member</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Name</label>
+                                    <input name="member_name" required type="text" class="form-control shadow-none" id="member_name_inp">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Picture</label>
+                                    <input name="member_picture" accept=".jpg, .png, .webp, .jpeg" required type="file" class="form-control shadow-none" id="member_picture_inp">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="" class="btn text-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
+                                <div class="custom-bg">
+                                    <button type="submit" class="btn text-white shadow-none">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -217,6 +267,12 @@ adminLogin();
     let general_s_form = document.getElementById('general_s_form');
     let site_title_inp = document.getElementById('site_title_inp');
     let site_about_inp = document.getElementById('site_about_inp');
+
+    let contacts_s_form = document.getElementById('contacts_s_form');
+
+    let team_s_form = document.getElementById('team_s_form');
+    let member_name_inp = document.getElementById('member_name_inp');
+    let member_picture_inp = document.getElementById('member_picture_inp');
 
     function get_general() {
 
@@ -252,7 +308,7 @@ adminLogin();
     general_s_form.addEventListener('submit', function(e) {
         e.preventDefault();
         upd_general(site_title_inp.value, site_about_inp.value);
-    })
+    });
 
     function upd_general(site_title_val, site_about_val) {
         let xhr = new XMLHttpRequest();
@@ -314,12 +370,91 @@ adminLogin();
             }
 
             iframe.src = contacts_data[9];
+            contacts_inp(contacts_data);
         }
         xhr.send('get_contacts');
     }
 
+    function contacts_inp(data) {
+        let contacts_inp_id = ['address_inp', 'gmap_inp', 'pn1_inp', 'pn2_inp', 'email_inp',
+            'fb_inp', 'tw_inp', 'insta_inp', 'iframe_inp'
+        ];
+        for (i = 0; i < contacts_inp_id.length; i++) {
+            document.getElementById(contacts_inp_id[i]).value = data[i + 1];
+        }
+    }
+
+    contacts_s_form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        upd_contacts();
+    });
+
+    function upd_contacts() {
+        let index = ['address', 'gmap', 'pn1', 'pn2', 'email', 'fb', 'insta', 'tw', 'iframe'];
+
+        let contacts_inp_id = ['address_inp', 'gmap_inp', 'pn1_inp', 'pn2_inp', 'email_inp', 'fb_inp', 'insta_inp', 'tw_inp', 'iframe_inp'];
+
+        let data_str = "";
+
+        for (i = 0; i < index.length; i++) {
+            data_str += index[i] + "=" + document.getElementById(contacts_inp_id[i]).value + "&";
+        }
+        data_str += "upd_contacts";
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "ajax/settings_crud.php", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+            var myModal = document.querySelector('#contact-s');
+            var modal = bootstrap.Modal.getOrCreateInstance(myModal);
+            modal.hide();
+
+            if (this.responseText == 1) {
+                alert('success', 'Changes saved!');
+                get_contacts();
+            } else {
+                alert('error', 'No changes made!');
+            }
+        }
+
+        xhr.send(data_str);
+    }
+
+    team_s_form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        add_member();
+    });
+
+    function add_member() {
+        let data = new FormData();
+        data.append('name', member_name_inp.value);
+        data.append('picture', member_picture_inp.files[0]);
+        data.append('add_member', '');
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "ajax/settings_crud.php", true);
+        
+        xhr.onload = function() {
+
+            /*var myModal = document.querySelector('#team-s');
+            var modal = bootstrap.Modal.getOrCreateInstance(myModal);
+            modal.hide();
+
+            if (this.responseText == 1) {
+                alert('success', 'Changes saved!');
+                get_general();
+            } else {
+                alert('error', 'No changes made!');
+            }
+            */
+        }
+        xhr.send(data);
+    }
+
     window.onload = function() {
         get_contacts();
+        get_general();
     }
 </script>
 </body>
